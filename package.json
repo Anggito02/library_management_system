@@ -1,7 +1,7 @@
 {
-  "name": "basic_express",
-  "version": "1.0.0",
-  "description": "",
+  "name": "library_management_system",
+  "version": "1.0.1",
+  "description": "This Back-End project is a library book-rental system. It is a REST API that allows you to manage books and users. It is developed with Express.js, Sequelize, and MySQL.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
