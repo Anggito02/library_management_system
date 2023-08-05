@@ -8,7 +8,7 @@
     "start:dev": "nodemon app.js",
     "lint": "eslint .",
     "migrate": "sequelize db:migrate",
-    "migrate:undo": "sequelize db:migrate:undo"
+    "migrate:undo": "sequelize db:migrate:undo:all"
   },
   "author": "",
   "license": "ISC",
