@@ -14,7 +14,6 @@ const getAllBooksService = async () => {
     return {
       status: 500,
       message: error.message,
-      data: null,
     };
   }
 };

@@ -26,7 +26,6 @@ const addBookService = async (bookData) => {
     return {
       status: 500,
       message: error.message,
-      data: null,
     };
   }
 };

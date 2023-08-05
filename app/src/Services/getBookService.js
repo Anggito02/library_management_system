@@ -9,7 +9,6 @@ const getBookService = async (id) => {
       return {
         status: 404,
         message: 'Book not found.',
-        data: null,
       };
     }
 
@@ -22,7 +21,6 @@ const getBookService = async (id) => {
     return {
       status: 500,
       message: error.message,
-      data: null,
     };
   }
 };
