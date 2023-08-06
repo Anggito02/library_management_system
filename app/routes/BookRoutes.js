@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 
 const {
   getAllBooks,
   getBook,
   addBook,
   deleteBook,
-} = require('../src/Controller/BookController.js');
+} = require(path.resolve('app', 'src', 'Controller', 'BookController.js'));
 
 router
     .route('/')

@@ -1,7 +1,7 @@
 const path = require('path');
 const Book = require(path.resolve('app', 'src', 'Models', 'Book.js'));
 
-const BookDTO = require('../DTO/BookDTO.js');
+const BookDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'BookDTO.js'));
 
 const getBookQuery = async (id) => {
   try {

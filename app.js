@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const cors = require('cors');
-const {sequelize} = require('./config/sequelize.config.js');
+const path = require('path');
 
-const apiRouter = require('./app/routes/apiRoutes.js');
+const {sequelize} = require(path.resolve('config', 'sequelize.config.js'));
+
+const apiRouter = require(path.resolve('app', 'routes', 'apiRoutes.js'));
 
 app.use(cors());
 app.use(express.json());
