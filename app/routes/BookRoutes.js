@@ -5,6 +5,7 @@ const {
   getAllBooks,
   getBook,
   addBook,
+  deleteBook,
 } = require('../src/Controller/BookController.js');
 
 router
@@ -14,6 +15,7 @@ router
 
 router
     .route('/:id')
-    .get(getBook);
+    .get(getBook)
+    .delete(deleteBook);
 
 module.exports = router;
