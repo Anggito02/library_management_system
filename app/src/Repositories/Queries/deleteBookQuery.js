@@ -1,11 +1,11 @@
 const path = require('path');
 const Book = require(path.resolve('app', 'src', 'Models', 'Book.js'));
 
-const deleteBookQuery = async (bookId) => {
+const deleteBookQuery = async (bookDto) => {
   try {
     const result = await Book.destroy({
       where: {
-        id: bookId,
+        id: bookDto.id,
       },
     });
 
