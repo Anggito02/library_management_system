@@ -4,8 +4,7 @@ const port = 3000;
 const cors = require('cors');
 const {sequelize} = require('./config/sequelize.config.js');
 
-const userRouter = require('./app/routes/UserRoutes.js');
-const bookRouter = require('./app/routes/BookRoutes.js');
+const apiRouter = require('./app/routes/apiRoutes.js');
 
 app.use(cors());
 app.use(express.json());
@@ -15,8 +14,14 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-app.use('/api/user', userRouter);
-app.use('/api/book', bookRouter);
+app.use('/api', apiRouter);
+
+app.use((req, res, next) => {
+  res.status(403).json({
+    status: 'fail',
+    message: `Method ${req.method} is not allowed for the route ${req.originalUrl}`,
+  });
+});
 
 sequelize.authenticate().then(() => {
   console.log('Connection to the database has been established successfully.');
