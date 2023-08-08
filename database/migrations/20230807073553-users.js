@@ -3,29 +3,45 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, DataTypes) {
-    return queryInterface.createTable('books', {
+    return queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      author: {
-        allowNull: false,
+      username: {
+        allowNull: true,
+        unique: true,
         type: DataTypes.STRING,
       },
-      title: {
+      email: {
         allowNull: false,
+        unique: true,
         type: DataTypes.STRING,
       },
-      total_pages: {
+      password: {
         allowNull: false,
-        type: DataTypes.INTEGER,
+        type: DataTypes.TEXT,
       },
-      available: {
+      role: {
+        allowNull: false,
+        type: DataTypes.ENUM('admin', 'user'),
+        defaultValue: 'user',
+      },
+      banned: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        defaultValue: false,
+      },
+      ban_days: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      lending: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
 
       // Timestamps
@@ -48,7 +64,7 @@ module.exports = {
     });
   },
 
-  async down(queryInterface, DataTypes) {
-    return queryInterface.dropTable('books');
+  async down(queryInterface, Sequelize) {
+    return queryInterface.dropTable('users');
   },
 };

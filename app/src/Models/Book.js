@@ -30,6 +30,11 @@ Book.init({
     allowNull: false,
     type: DataTypes.INTEGER,
   },
+  available: {
+    allowNull: false,
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
 }, {
   sequelize,
   modelName: 'Book',
