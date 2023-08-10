@@ -1,6 +1,6 @@
 const path = require('path');
 
-const addUserService = require(path.resolve('app', 'src', 'Services', 'addUserService.js'));
+const addUserService = require(path.resolve('app', 'src', 'Services', 'UserServices', 'addUserService.js'));
 
 const addUser = async (req, res) => {
   const data = req.body;

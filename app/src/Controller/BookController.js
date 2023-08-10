@@ -1,9 +1,9 @@
 const path = require('path');
 
-const getAllBooksService = require(path.resolve('app', 'src', 'Services', 'getAllBooksService.js'));
-const getBookService = require(path.resolve('app', 'src', 'Services', 'getBookService.js'));
-const addBookService = require(path.resolve('app', 'src', 'Services', 'addBookService.js'));
-const deleteBookService = require(path.resolve('app', 'src', 'Services', 'deleteBookService.js'));
+const getAllBooksService = require(path.resolve('app', 'src', 'Services', 'BookServices', 'getAllBooksService.js'));
+const getBookService = require(path.resolve('app', 'src', 'Services', 'BookServices', 'getBookService.js'));
+const addBookService = require(path.resolve('app', 'src', 'Services', 'BookServices', 'addBookService.js'));
+const deleteBookService = require(path.resolve('app', 'src', 'Services', 'BookServices', 'deleteBookService.js'));
 
 const getAllBooks = async (req, res) => {
   const result = await getAllBooksService();
