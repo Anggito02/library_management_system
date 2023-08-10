@@ -17,6 +17,7 @@ const addUserService = async (data) => {
     const password = data.password;
     const email = data.email;
 
+    // validate username, password, and email
     const usernameValidation = await usernameValidator(username);
     const emailValidation = await emailValidator(email);
     const passwordValidation = passwordValidator(password);
@@ -41,8 +42,11 @@ const addUserService = async (data) => {
         message: emailValidation.message,
       };
     }
+
+    // hash password
     const hashedPassword = bcrypt.hashSync(password, 10);
 
+    // add new user to database
     const result = await addUserQuery(new UserDTO(
         null,
         username,
@@ -54,6 +58,7 @@ const addUserService = async (data) => {
         null,
     ));
 
+    // if user successfully added
     return {
       status: 201,
       message: 'Successfully add new user.',

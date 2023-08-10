@@ -12,6 +12,7 @@ const deleteBookService = async (bookId) => {
         null,
     );
 
+    // delete book with {id} from database
     const result = await deleteBookQuery(bookDto);
 
     if (result === 0) {

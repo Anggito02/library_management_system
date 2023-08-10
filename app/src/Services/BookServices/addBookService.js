@@ -10,6 +10,7 @@ const addBookService = async (bookData) => {
     author = bookData.author;
     totalPages = bookData.totalPages;
 
+    // add new book to database
     const result = await addBookQuery(new BookDTO(
         null,
         title,
@@ -17,6 +18,7 @@ const addBookService = async (bookData) => {
         totalPages,
     ));
 
+    // if book successfully added
     return {
       status: 201,
       message: 'Successfully add new book.',

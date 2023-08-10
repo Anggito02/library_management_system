@@ -3,8 +3,10 @@ const getAllBooksQuery = require(path.resolve('app', 'src', 'Repositories', 'Que
 
 const getAllBooksService = async () => {
   try {
+    // get all books from database
     const result = await getAllBooksQuery();
 
+    // if books retrieved
     return {
       status: 200,
       message: 'Successfully retrieved all books.',

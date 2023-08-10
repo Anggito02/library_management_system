@@ -3,6 +3,7 @@ const path = require('path');
 const emailAvailableQuery = require(path.resolve('app', 'src', 'Utils', 'Queries', 'emailAvailableQuery.js'));
 
 const emailValidator = async (email) => {
+  // check if email is available
   if (await emailAvailableQuery(email) === false) {
     return {
       status: false,
@@ -10,6 +11,7 @@ const emailValidator = async (email) => {
     };
   }
 
+  // check if email is valid
   if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
     return {
       status: false,
