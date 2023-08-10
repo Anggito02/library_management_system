@@ -1,5 +1,5 @@
 class UserDTO {
-  constructor(id, username, email, password, role, banned, banDays, lending) {
+  constructor(id, username, password, email, role, banned, banDays, lending) {
     this.id = id;
     this.username = username;
     this.password = password;

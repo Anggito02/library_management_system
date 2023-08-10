@@ -10,10 +10,10 @@ const emailAvailableQuery = async (email) => {
       },
     });
 
-    if (result) {
-      return false;
+    if (result.length === 0) {
+      return true;
     }
-    return true;
+    return false;
   } catch (error) {
     throw error;
   }

@@ -3,6 +3,7 @@ const path = require('path');
 const User = require(path.resolve('app', 'src', 'Models', 'User.js'));
 
 const addUserQuery = async (userDto) => {
+  console.log(userDto);
   try {
     const result = await User.create({
       username: userDto.username,
