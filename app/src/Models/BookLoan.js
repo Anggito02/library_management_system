@@ -2,51 +2,45 @@ const path = require('path');
 const {DataTypes, Model} = require('sequelize');
 const {sequelize} = require(path.resolve('config', 'sequelize.config.js'));
 
-class Book extends Model {
+class BookLoan extends Model {
   static associate(models) {
-    Book.hasMany(models.BookCategory, {
-      foreignKey: 'book_id',
-      as: 'book_category',
+    BookLoan.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user',
     });
-    Book.hasMany(models.BookLoan, {
+    BookLoan.belongsTo(models.Book, {
       foreignKey: 'book_id',
-      as: 'book_loan',
+      as: 'book',
     });
   }
 }
 
-Book.init({
+BookLoan.init({
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
-  author: {
+  start_date: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.DATE,
   },
-  title: {
+  end_date: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.DATE,
   },
-  total_pages: {
-    allowNull: false,
-    type: DataTypes.INTEGER,
-  },
-  available: {
+  overdue: {
     allowNull: false,
     type: DataTypes.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
   },
 }, {
   sequelize,
-  modelName: 'Book',
-  tableName: 'books',
+  modelName: 'BookLoan',
+  tableName: 'book_loans',
   paranoid: true,
   createdAt: 'created_at',
   updatedAt: 'updated_at',
   deletedAt: 'deleted_at',
 });
-
-module.exports = Book;

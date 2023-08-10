@@ -2,51 +2,63 @@ const path = require('path');
 const {DataTypes, Model} = require('sequelize');
 const {sequelize} = require(path.resolve('config', 'sequelize.config.js'));
 
-class Book extends Model {
+class User extends Model {
   static associate(models) {
-    Book.hasMany(models.BookCategory, {
-      foreignKey: 'book_id',
-      as: 'book_category',
-    });
-    Book.hasMany(models.BookLoan, {
-      foreignKey: 'book_id',
-      as: 'book_loan',
+    User.hasMany(models.Book, {
+      foreignKey: 'user_id',
+      as: 'books',
     });
   }
 }
 
-Book.init({
+User.init({
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
-  author: {
-    allowNull: false,
+  username: {
+    allowNull: true,
+    unique: true,
     type: DataTypes.STRING,
   },
-  title: {
+  email: {
     allowNull: false,
+    unique: true,
     type: DataTypes.STRING,
   },
-  total_pages: {
+  password: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.TEXT,
   },
-  available: {
+  role: {
+    allowNull: false,
+    type: DataTypes.ENUM('admin', 'user'),
+    defaultValue: 'user',
+  },
+  banned: {
     allowNull: false,
     type: DataTypes.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
+  },
+  ban_days: {
+    allowNull: true,
+    type: DataTypes.INTEGER,
+  },
+  lending: {
+    allowNull: false,
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
 }, {
   sequelize,
-  modelName: 'Book',
-  tableName: 'books',
+  modelName: 'User',
+  tableName: 'users',
   paranoid: true,
   createdAt: 'created_at',
   updatedAt: 'updated_at',
   deletedAt: 'deleted_at',
 });
 
-module.exports = Book;
+module.exports = User;
