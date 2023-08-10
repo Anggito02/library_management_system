@@ -2,7 +2,7 @@ const path = require('path');
 
 const addBookQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'addBookQuery.js'));
 
-const BookDTO = require('../Repositories/DTO/BookDTO');
+const BookDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'BookDTO.js'));
 
 const addBookService = async (bookData) => {
   try {
@@ -10,7 +10,7 @@ const addBookService = async (bookData) => {
     author = bookData.author;
     totalPages = bookData.totalPages;
 
-    const result = addBookQuery(new BookDTO(
+    const result = await addBookQuery(new BookDTO(
         null,
         title,
         author,

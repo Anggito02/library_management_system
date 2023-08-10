@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 class BookDTO {
   constructor(id, title, author, totalPages) {
     this.id = id;

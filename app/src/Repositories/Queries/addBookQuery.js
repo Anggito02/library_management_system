@@ -1,4 +1,5 @@
 const path = require('path');
+
 const Book = require(path.resolve('app', 'src', 'Models', 'Book.js'));
 
 const addBookQuery = async (bookDto) => {
