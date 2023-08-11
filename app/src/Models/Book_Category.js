@@ -22,6 +22,22 @@ BookCategory.init({
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
+  book_id: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Book',
+      key: 'id',
+    },
+  },
+  category_id: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Category',
+      key: 'id',
+    },
+  },
 }, {
   sequelize,
   modelName: 'BookCategory',

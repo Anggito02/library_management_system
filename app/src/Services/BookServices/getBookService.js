@@ -1,5 +1,5 @@
 const path = require('path');
-const getBookQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'getBookQuery.js'));
+const getBookQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'BookQueries', 'getBookQuery.js'));
 
 const getBookService = async (id) => {
   try {

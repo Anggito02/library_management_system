@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const UserDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'UserDto.js'));
 
-const addUserQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'addUserQuery.js'));
+const addUserQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'UserQueries', 'addUserQuery.js'));
 
 const {
   usernameValidator,

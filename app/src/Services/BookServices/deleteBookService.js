@@ -1,5 +1,5 @@
 const path = require('path');
-const deleteBookQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'deleteBookQuery.js'));
+const deleteBookQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'BookQueries', 'deleteBookQuery.js'));
 
 const BookDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'BookDTO.js'));
 
@@ -15,6 +15,7 @@ const deleteBookService = async (bookId) => {
     // delete book with {id} from database
     const result = await deleteBookQuery(bookDto);
 
+    // if no book with {id} found
     if (result === 0) {
       return {
         status: 404,
@@ -22,6 +23,7 @@ const deleteBookService = async (bookId) => {
       };
     }
 
+    // if book with {id} found
     return {
       status: 200,
       message: 'Successfully deleted book.',

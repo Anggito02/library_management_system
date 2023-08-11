@@ -1,28 +1,74 @@
 const path = require('path');
 
-const addBookQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'addBookQuery.js'));
+const addBookQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'BookQueries', 'addBookQuery.js'));
+const getCategoryQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'CategoryQueries', 'getCategoryQuery.js'));
+const addCategoryQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'CategoryQueries', 'addCategoryQuery.js'));
+const addBookCategoryQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'BookCategoryQueries', 'addBookCategoryQuery.js'));
 
 const BookDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'BookDTO.js'));
+const CategoryDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'CategoryDTO.js'));
+const BookCategoryDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'BookCategoryDTO.js'));
 
 const addBookService = async (bookData) => {
   try {
-    title = bookData.title;
-    author = bookData.author;
-    totalPages = bookData.totalPages;
+    const title = bookData.title;
+    const author = bookData.author;
+    const totalPages = bookData.totalPages;
+    const categories = bookData.categories;
 
     // add new book to database
-    const result = await addBookQuery(new BookDTO(
+    const bookResult = await addBookQuery(new BookDTO(
         null,
         title,
         author,
         totalPages,
     ));
 
+    // check if category is exist
+    const categoryIds = [];
+
+    for (const category of categories) {
+      const categoryLowered = category.toLowerCase();
+      const categoryUnderscored = categoryLowered.replace(' ', '_');
+
+      let categoryResult = await getCategoryQuery(new CategoryDTO(
+          null,
+          categoryUnderscored,
+      ));
+
+      // if not exist, add new category
+      if (categoryResult.length === 0) {
+        categoryResult = await addCategoryQuery(new CategoryDTO(
+            null,
+            categoryUnderscored,
+        ));
+      }
+
+      // if exist, get category id
+      if (categoryResult.length > 0) {
+        categoryIds.push(categoryResult[0].id);
+      } else {
+        categoryIds.push(categoryResult.id);
+      }
+    }
+
+    // add new book category to database
+    for (const categoryId of categoryIds) {
+      await addBookCategoryQuery(new BookCategoryDTO(
+          null,
+          bookResult.id,
+          categoryId,
+      ));
+    }
+
     // if book successfully added
     return {
       status: 201,
       message: 'Successfully add new book.',
-      data: result,
+      data: {
+        bookResult,
+        categoryIds,
+      },
     };
   } catch (error) {
     return {
