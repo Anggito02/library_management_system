@@ -1,14 +1,13 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const createToken = (payload) => {
+const createRefreshToken = (payload) => {
   const token = jwt.sign(
       payload,
-      process.env.ACCESS_TOKEN_SECRET,
-      {expiresIn: '15s'},
+      process.env.REFRESH_TOKEN_SECRET,
   );
 
   return token;
 };
 
-module.exports = createToken;
+module.exports = createRefreshToken;
