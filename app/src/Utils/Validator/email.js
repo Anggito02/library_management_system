@@ -1,6 +1,6 @@
 const path = require('path');
 
-const emailAvailableQuery = require(path.resolve('app', 'src', 'Utils', 'Queries', 'emailAvailableQuery.js'));
+const emailAvailableQuery = require(path.resolve('app', 'src', 'Utils', 'ValidatorQueries', 'emailAvailableQuery.js'));
 
 const emailValidator = async (email) => {
   // check if email is available

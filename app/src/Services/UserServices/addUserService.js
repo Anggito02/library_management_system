@@ -5,6 +5,8 @@ const UserDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'UserD
 
 const addUserQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'UserQueries', 'addUserQuery.js'));
 
+const createToken = require(path.resolve('app', 'src', 'Utils', 'Auth', 'createToken.js'));
+
 const {
   usernameValidator,
   passwordValidator,
@@ -58,11 +60,19 @@ const addUserService = async (data) => {
         null,
     ));
 
+    // get token
+    const token = createToken({
+      username: result.username,
+      email: result.email,
+      role: result.role,
+    });
+
     // if user successfully added
     return {
       status: 201,
       message: 'Successfully add new user.',
       data: result,
+      token: token,
     };
   } catch (error) {
     return {

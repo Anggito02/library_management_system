@@ -1,6 +1,6 @@
 const path = require('path');
 
-const usernameAvailableQuery = require(path.resolve('app', 'src', 'Utils', 'Queries', 'usernameAvailableQuery.js'));
+const usernameAvailableQuery = require(path.resolve('app', 'src', 'Utils', 'ValidatorQueries', 'usernameAvailableQuery.js'));
 
 const usernameValidator = async (username) => {
   // check if username is available
