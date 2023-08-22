@@ -4,9 +4,13 @@ const {sequelize} = require(path.resolve('config', 'sequelize.config.js'));
 
 class User extends Model {
   static associate(models) {
-    User.hasMany(models.Book, {
+    User.hasMany(models.BookLoan, {
       foreignKey: 'user_id',
-      as: 'books',
+      as: 'book_loan',
+    });
+    User.belongsTo(models.RefreshToken, {
+      foreignKey: 'username',
+      as: 'refresh_token',
     });
   }
 }
