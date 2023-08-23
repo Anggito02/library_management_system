@@ -1,14 +1,9 @@
 const path = require('path');
 const bcrypt = require('bcrypt');
 
-const UserDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'UserDTO.js'));
-const RefreshTokenDTO = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'RefreshTokenDTO.js'));
+const UserDto = require(path.resolve('app', 'src', 'Repositories', 'DTO', 'UserDTO.js'));
 
 const addUserQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'UserQueries', 'addUserQuery.js'));
-const addRefreshTokenQuery = require(path.resolve('app', 'src', 'Repositories', 'Queries', 'UserQueries', 'addRefreshTokenQuery.js'));
-
-const createAccessToken = require(path.resolve('app', 'src', 'Utils', 'Auth', 'createAccessToken.js'));
-const createRefreshToken = require(path.resolve('app', 'src', 'Utils', 'Auth', 'createRefreshToken.js'));
 
 const {
   usernameValidator,
@@ -52,7 +47,7 @@ const addUserService = async (data) => {
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     // add new user to databa se
-    const result = await addUserQuery(new UserDTO(
+    const result = await addUserQuery(new UserDto(
         null,
         username,
         hashedPassword,
@@ -63,38 +58,11 @@ const addUserService = async (data) => {
         null,
     ));
 
-    // get token
-    const accessToken = createAccessToken({
-      username: result.username,
-      email: result.email,
-      role: result.role,
-    });
-
-    const refreshToken = createRefreshToken({
-      username: result.username,
-      email: result.email,
-      role: result.role,
-    });
-
-    // save refresh token to database
-    await addRefreshTokenQuery(new RefreshTokenDTO(
-        result.username,
-        result.email,
-        result.role,
-        refreshToken,
-    ));
-
-    const token = {
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    };
-
     // if user successfully added
     return {
       status: 201,
       message: 'Successfully add new user.',
       data: result,
-      token: token,
     };
   } catch (error) {
     return {

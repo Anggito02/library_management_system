@@ -26,6 +26,9 @@ module.exports = {
         allowNull: false,
         type: DataTypes.STRING(500),
       },
+      expires_at: {
+        type: DataTypes.DATE,
+      },
 
       // Timestamps
       created_at: {
