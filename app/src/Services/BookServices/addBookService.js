@@ -16,14 +16,6 @@ const addBookService = async (bookData) => {
     const totalPages = bookData.totalPages;
     const categories = bookData.categories;
 
-    // add new book to database
-    const bookResult = await addBookQuery(new BookDTO(
-        null,
-        title,
-        author,
-        totalPages,
-    ));
-
     // check if category is exist
     const categoryIds = [];
 
@@ -37,20 +29,25 @@ const addBookService = async (bookData) => {
       ));
 
       // if not exist, add new category
+      // if exist, get category id
       if (categoryResult.length === 0) {
         categoryResult = await addCategoryQuery(new CategoryDTO(
             null,
             categoryUnderscored,
         ));
-      }
 
-      // if exist, get category id
-      if (categoryResult.length > 0) {
-        categoryIds.push(categoryResult[0].id);
-      } else {
         categoryIds.push(categoryResult.id);
-      }
+        continue;
+      } else categoryIds.push(categoryResult[0].id);
     }
+
+    // add new book to database
+    const bookResult = await addBookQuery(new BookDTO(
+        null,
+        title,
+        author,
+        totalPages,
+    ));
 
     // add new book category to database
     for (const categoryId of categoryIds) {

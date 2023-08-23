@@ -51,7 +51,7 @@ const addUserService = async (data) => {
     // hash password
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    // add new user to database
+    // add new user to databa se
     const result = await addUserQuery(new UserDTO(
         null,
         username,
