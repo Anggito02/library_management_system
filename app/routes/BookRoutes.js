@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
+const isLoggedIn = require(path.resolve('app', 'src', 'Middlewares', 'isLoggedIn.js'));
+const isAdmin = require(path.resolve('app', 'src', 'Middlewares', 'isAdmin.js'));
+
 const {
   getAllBooks,
   getBook,
@@ -11,12 +14,12 @@ const {
 
 router
     .route('/')
-    .get(getAllBooks)
-    .post(addBook);
+    .get(isLoggedIn, getAllBooks)
+    .post(isLoggedIn, isAdmin, addBook);
 
 router
     .route('/:id')
-    .get(getBook)
-    .delete(deleteBook);
+    .get(isLoggedIn, getBook)
+    .delete(isLoggedIn, isAdmin, deleteBook);
 
 module.exports = router;

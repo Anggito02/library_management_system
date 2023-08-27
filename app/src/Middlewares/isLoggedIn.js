@@ -1,10 +1,9 @@
-require('dotenv').config();
+require('dotenv');
 
 const jwt = require('jsonwebtoken');
 
-const validateAccessToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-
+const isLoggedIn = (req, res, next) => {
+  const authHeader = req.headers.authorization;
   const accessToken = authHeader && authHeader.split(' ')[1];
 
   if (!accessToken) {
@@ -27,9 +26,9 @@ const validateAccessToken = (req, res, next) => {
         .status(401)
         .json({
           status: 401,
-          message: 'Invalid access token',
+          message: error.message,
         });
   }
 };
 
-module.exports = validateAccessToken;
+module.exports = isLoggedIn;
